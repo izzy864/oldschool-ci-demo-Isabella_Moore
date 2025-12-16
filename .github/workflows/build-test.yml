@@ -18,7 +18,7 @@ jobs:
          docker --version
       #  Docker-Image bauen  
       - name: Build Docker image
-        run: docker build -t oldschool-demo-image
+        run: docker build -t oldschool-demo-image .
 
       #  Container starten & Ausgabe testen 
       - name: Container starten & testen 
