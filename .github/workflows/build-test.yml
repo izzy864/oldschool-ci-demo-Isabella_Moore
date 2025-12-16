@@ -21,7 +21,7 @@ jobs:
 
       #  Docker-Image bauen  
       - name: Build Docker image
-        run: docker build -t oldschool-demo-image-name .
+        run: docker build -t oldschool-demo-image
 
       #  Container starten & Ausgabe testen 
       - name: Container starten & testen 
