@@ -24,17 +24,11 @@ jobs:
         run: docker build -t oldschool-demo-image-name .
 
       #  Container starten & Ausgabe testen 
-      - name: Container starten & testen
-        run: |
-          EXPECTED_OUTPUT="OldSchool GmbH –  automatischer Build erfolgreich! (Isabella Moore)"
-
-          output=$(docker run oldschool-demo-image-name)
-          echo "$output"
-
-          if [ "$output" != "$EXPECTED_OUTPUT" ]; then
-            echo " Test fehlgeschlagen!"
-            echo "Erwartet: $EXPECTED_OUTPUT"
-            exit 1
-          fi
-
-          echo " Test erfolgreich!"
+      - name: Container starten & testen 
+        run: | 
+          output=$(docker run oldschool-demo-image) 
+          echo "$output" 
+          if [ "$output" != "OldSchool GmbH –  automatischer Build erfolgreich! (Isabella Moore)" ]; then 
+          echo "Test fehlgeschlagen!" 
+          exit 1 
+          fi 
