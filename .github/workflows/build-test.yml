@@ -1,0 +1,40 @@
+name: Build and Test Pipeline
+
+on:
+  push:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      #  Repo auschecken
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      #  Docker installieren
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+
+      #  Docker-Image bauen  
+      - name: Build Docker image
+        run: docker build -t oldschool-demo-image-name .
+
+      #  Container starten & Ausgabe testen 
+      - name: Container starten & testen
+        run: |
+          EXPECTED_OUTPUT="OldSchool GmbH –  automatischer Build erfolgreich! (Isabella Moore)"
+
+          output=$(docker run oldschool-demo-image-name)
+          echo "$output"
+
+          if [ "$output" != "$EXPECTED_OUTPUT" ]; then
+            echo " Test fehlgeschlagen!"
+            echo "Erwartet: $EXPECTED_OUTPUT"
+            exit 1
+          fi
+
+          echo " Test erfolgreich!"
